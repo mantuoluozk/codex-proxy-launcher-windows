@@ -1,6 +1,6 @@
 # Codex System Proxy Fix for Windows
 
-这是一个可安装的 Codex Skill，用 Codex 原生的 Windows 系统代理支持解决启动后反复“正在重新连接 5/5”、请求超时、部分请求绕过代理，以及手机端 Remote 无法连接电脑的问题。
+这是一个可安装的 Codex Skill，用 Codex 原生的 Windows 系统代理支持解决启动后反复“正在重新连接 5/5”、请求超时或部分请求绕过代理的问题。
 
 安装后继续使用原来的 Codex 桌面图标、开始菜单或任务栏入口即可。本项目不会创建、替换或劫持任何快捷方式。
 
@@ -15,7 +15,7 @@ respect_system_proxy = true
 
 它只改变 Codex 读取 Windows 系统代理的行为，不修改系统代理、WinHTTP、Git 配置或环境变量，也不会改变其他应用的网络行为。
 
-Clash、FlClash 等软件切换节点时，本地代理入口通常保持不变，因此 Codex 和手机 Remote 会自动使用新节点，不需要开启全局模式。如果更换代理软件或修改本地端口，请完全退出并重新打开 Codex。
+Clash、FlClash 等软件切换节点时，本地代理入口通常保持不变，因此 Codex 会自动使用新节点。如果更换代理软件或修改本地端口，请完全退出并重新打开 Codex。
 
 ## 作为 Skill 安装
 
@@ -28,7 +28,7 @@ Clash、FlClash 等软件切换节点时，本地代理入口通常保持不变�
 也可以显式调用：
 
 ```text
-使用 $codex-windows-system-proxy 修复 Codex 的“正在重新连接 5/5”和手机 Remote 连接失败。
+使用 $codex-windows-system-proxy 修复 Codex 的“正在重新连接 5/5”。
 ```
 
 ## 直接安装
@@ -57,7 +57,7 @@ codex features list | Select-String respect_system_proxy
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-readiness.ps1
 ```
 
-如果 `RestartRequired` 为 `true`，必须先从系统托盘完全退出 Codex，再重新打开并测试 Remote。该检查不会修改任何设置。
+如果 `RestartRequired` 为 `true`，必须先从系统托盘完全退出 Codex，再重新打开。该检查不会修改任何设置。
 
 ## 卸载
 
