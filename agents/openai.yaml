@@ -1,4 +1,4 @@
 interface:
   display_name: "Codex Windows System Proxy"
-  short_description: "Fix Codex reconnects with native system proxy"
-  default_prompt: "Use $codex-windows-system-proxy to fix Codex reconnect loops without changing shortcuts or other apps."
+  short_description: "Fix Codex and phone Remote proxy failures"
+  default_prompt: "Use $codex-windows-system-proxy to fix Codex and phone Remote connection failures without changing shortcuts or other apps."

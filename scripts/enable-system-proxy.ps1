@@ -44,6 +44,7 @@ if (Test-Path -LiteralPath $configPath) {
 } else {
     $lines = New-Object System.Collections.ArrayList
 }
+$configChanged = $false
 
 $featuresIndex = -1
 for ($i = 0; $i -lt $lines.Count; $i++) {
@@ -59,6 +60,7 @@ if ($featuresIndex -lt 0) {
     }
     [void]$lines.Add('[features]')
     [void]$lines.Add('respect_system_proxy = true')
+    $configChanged = $true
 } else {
     $nextSection = $lines.Count
     for ($i = $featuresIndex + 1; $i -lt $lines.Count; $i++) {
@@ -77,13 +79,19 @@ if ($featuresIndex -lt 0) {
     }
 
     if ($settingIndex -ge 0) {
-        $lines[$settingIndex] = 'respect_system_proxy = true'
+        if ($lines[$settingIndex] -notmatch '^\s*respect_system_proxy\s*=\s*true\s*$') {
+            $lines[$settingIndex] = 'respect_system_proxy = true'
+            $configChanged = $true
+        }
     } else {
         $lines.Insert($nextSection, 'respect_system_proxy = true')
+        $configChanged = $true
     }
 }
 
-[System.IO.File]::WriteAllLines($configPath, [string[]]$lines, $utf8NoBom)
+if ($configChanged) {
+    [System.IO.File]::WriteAllLines($configPath, [string[]]$lines, $utf8NoBom)
+}
 
 $enabledOutput = & $codexCli features list 2>&1 | Out-String
 if ($enabledOutput -notmatch '(?m)^respect_system_proxy\s+.+\strue\s*$') {
